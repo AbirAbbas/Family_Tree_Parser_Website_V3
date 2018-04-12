@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Geneology App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CHANGE ME">
+    <meta name="keywords" content="CHANGE ME">
+    <meta name="author" content="CHANGE ME">
+    <!-- Load jquery, bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <!-- Custom CSS End -->
+</head>
+<body>
+
+    <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-dark p-4">
+            <h4 class="text-white">Menu</h4>
+            <ul class="nav nav-pills barPadding" role="tablist">
+                <li>
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#home">Home</a>
+                </li>
+                <li>
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#status">Status</a>
+                </li>
+                <li>
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#file">File</a>
+                </li>
+                <li class="nav-item">
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#gedcom">Gedcom</a>
+                </li>
+                <li class="nav-item">
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#upload">Upload</a>
+                </li>
+                <li class="nav-item">
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#create">Create</a>
+                </li>
+                <li class="nav-item">
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#add">Add</a>
+                </li>
+                <li class="nav-item">
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#desc">Descendants</a>
+                </li>
+                <li class="nav-item">
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#ances">Ancestors</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark bgCG">
+            <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img class = "icon" src="icon.png" alt="Logo">
+                        <b class="icon">Geneology App</b>
+                    </a>
+            </div>
+            <button class="navbar-toggler" onclick="topFunction()" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+
+    <div class="tab-content bodyBackground topLayer">
+        <div id="home" class="customContainer tab-pane active"><br>
+            <h1>Welcome to the geneology app!</h1>
+            <br>
+            <p class="homeFormat">
+                To navigate through the website click on the ≡ symbol on the top right of the screen.
+                <br>
+                <br>
+                <!-- STATUS PANEL -->
+                <div id="status"><br>
+                    <h2 align = "center" class = "extraPadding">Status Panel</h2>
+                    <br>
+                    <!-- Status Textbox, add func when new text is inputted it automatically scrolls to the bottom -->
+                    <div class="card">
+                        <div id = "statusPanelText" class="card-block scroll-box">
+                          
+                        </div>
+                    </div>
+                </div>
+                <!-- UPLOAD PANEL -->
+                <div id="upload"><br>
+                    <h2 align = "center" class = "extraPadding">Upload Panel</h2>
+                    <br>
+                    <div align = "center" class = "extraPadding">
+					<form ref='uploadForm' 
+						id='uploadForm' 
+						action='/upload' 
+						method='post' 
+						onsubmit= 'return validateForm()'
+						encType="multipart/form-data">
+						<input type="file" name="uploadFile" required />
+						<input type='submit' value='Upload!' />
+					</form>
+					</div>     
+                </div>
+                <!-- FILE PANEL -->
+                <div id="file"><br>
+                    <h2 align = "center" class = "extraPadding">File Log Panel</h2>
+                    
+                    <!-- Table for indis -->
+                    <div class = "customTable scrollEnabled">
+                            <h4>All individuals</h4>        
+                            <table id = "indiList" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            File name
+                                            <br>
+                                            (click to download)
+                                        </th>
+                                        <th>Source</th>
+                                        <th>
+                                            GEDC
+                                            <br>
+                                            version
+                                        </th>
+                                        <th>Encoding</th>
+                                        <th>
+                                            Submitter
+                                            <br>
+                                            name
+                                        </th>
+                                        <th>
+                                            Submitter
+                                            <br>
+                                            Address
+                                        </th>
+                                        <th>
+                                            Number of
+                                            <br>
+                                            individuals
+                                        </th>
+                                        <th>
+                                            Number of
+                                            <br>
+                                            families
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+									<!-- Sample 
+                                    <tr>
+                                        <td>simpleGedcom.ged</td>
+                                        <td>PAF</td>
+                                        <td>5.5</td>
+                                        <td>ANSEL</td>
+                                        <td>Submitter</td>
+                                        <td></td>
+                                        <td>3</td>
+                                        <td>1</td>
+                                    </tr>
+									-->
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- end of Table for indis -->
+
+                </div>
+                <!-- GEDCOM PANEL -->
+                <div id="gedcom"><br>
+                <br>
+                    <h2 align = "center" class = "extraPadding">Gedcom View Panel</h2>
+                    <br>
+
+                    <!-- dropdown for files -->
+                    <div align = "center" class="dropdown extraPadding">
+                        <button type="button" class="btn btn-primary dropdown-toggle stretchBlue" data-toggle="dropdown">
+                            Select your file
+                        </button>
+                        <div id = 'dropdownList' class="dropdown-menu stretchBlue smallScrollEnabled">
+							<!--
+                            <a class="dropdown-item" href="#">simpleValid.ged</a>
+                            <a class="dropdown-item" href="#">shakespeare.ged</a>
+                            <a class="dropdown-item" href="#">test.ged</a>
+                            -->
+                        </div>
+                    </div>
+                    <!-- dropdown for files -->
+
+                    <!-- Table for indis -->
+                    <br>
+                    <div class = "customTable smallScrollEnabled">
+                        <h4 id = 'gpanelFile'>All Files</h4>        
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Firstname</th>
+                                <th>Lastname</th>
+                                <th>Sex</th>
+                                <th>Family size</th>
+                            </tr>
+                            </thead>
+                            <tbody id = "indiBody">
+							
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- end of Table for indis -->
+                    
+                    <!-- GEDCOM Get Desc -->
+                    <div id = "desc">
+						<br>
+						<h4>Get Descendants</h4>  
+						<h5 id = "descendantFile"class ="importantText"><strong>* Please scroll up and select a file in the blue drop-down box!</strong></h5>
+						<form class = "extraPadding" action = "javascript:handleClickDesc()">
+							<div class="form-group">
+							<label for="indiDesc">Select an individual</label>
+							<select id = "indiDesc" required >
+								<!--
+								<option value="ANSEL">ANSEL</option>
+								<option value="UTF-8">UTF-8</option>
+								<option value="UNICODE">UNICODE</option>
+								<option value="ASCII">ASCII</option>
+								-->
+							</select>
+							</div>
+							
+							<div class="form-group">
+								<label for="submittername">Max number of generations</label>
+								<input type="text" class="form-control" id="maxGenDesc" placeholder="Max generations" required>
+							</div>
+							
+							<div class="form-group">
+							<input type="submit" value="Submit">
+							</div>
+						</form>
+						
+						<div class = "customTable smallScrollEnabled"> 
+							<table id = "descendantList" class="table table-bordered table-hover">
+									<tbody id = "dList1" class="table table-bordered table-hover">
+									
+									</tbody>
+							</table>
+						</div>
+					</div>
+					
+					<!-- GEDCOM Get Ances -->
+					<div id = "ances">
+						<br>
+						<h4>Get Ancestors</h4>  
+						<h5 id = "ancestorFile"class ="importantText"><strong>* Please scroll up and select a file in the blue drop-down box!</strong></h5>
+						<form class = "extraPadding" action = "javascript:handleClickAnces()">
+							<div class="form-group">
+							<label for="indiAnces">Select an individual</label>
+							<select id = "indiAnces" required >
+							</select>
+							</div>
+							
+							<div class="form-group">
+								<label for="submittername">Max number of generations</label>
+								<input type="text" class="form-control" id="maxGenAnces" placeholder="Max generations" required >
+							</div>
+							
+							<div class="form-group">
+							<input type="submit" value="Submit">
+							</div>
+						</form>
+						
+						<div class = "customTable smallScrollEnabled"> 
+							<table id = "ancestorList" class="table table-bordered table-hover">
+									<tbody id = "aList1" class="table table-bordered table-hover">
+									
+									</tbody>
+							</table>
+						</div>
+					</div>
+					
+					<!-- GEDCOM ADD INDI -->
+					<div id = "add">
+						<br>
+						<h4>Insert individual</h4> 
+						<form class = "extraPadding" action = "javascript:handleClick()">
+							<div class="form-group">
+							<label for="givenname">Given name</label>
+							<input type="text" class="form-control" id="givenname" placeholder="Given name" required >
+							</div>
+							<div class="form-group">
+							<label for="surname">Surname</label>
+							<input type="text" class="form-control" id="surname" placeholder="Surname" required >
+							</div>
+							<div class="form-group">
+							<input type="submit" value="Submit">
+							</div>
+						</form>
+						</div>
+                </div>
+                <!-- Create GEDCOM PANEL -->
+                <div id="create"><br>
+                    <h2 align = "center" class = "extraPadding">GEDCOM create Panel</h2>
+                    
+                    <!-- GEDCOM CREATE-->
+                    <form class = "extraPadding" action = "javascript:handleClickCreate()">
+						
+						<div class="form-group">
+						<label for="filenamecreate">File name</label>
+						<input type="text" class="form-control" id="filenamecreate" placeholder="File name" required >
+						</div>
+	
+						<div class="form-group">
+						<label for="sourcecreate">Source</label>
+						<input type="text" class="form-control" id="sourcecreate" placeholder="Source" required >
+						</div>
+						
+						<div class="form-group">
+						<label for="gedcversion">GEDCOM version</label>
+						<input type="text" class="form-control" id="gedcversion" placeholder="GEDCOM version" required >
+						</div>
+						
+						<div class="form-group">
+						<label for="encoding">Encoding</label>
+						<select id = "encoding" required >
+						  <option value="ANSEL">ANSEL</option>
+						  <option value="UTF-8">UTF-8</option>
+						  <option value="UNICODE">UNICODE</option>
+						  <option value="ASCII">ASCII</option>
+						</select>
+						</div>
+						
+						<div class="form-group">
+						<label for="submittername">Submitter Name</label>
+						<input type="text" class="form-control" id="submittername" placeholder="Submitter Name" required >
+						</div>
+						
+						<div class="form-group">
+						<label for="submitteraddress">Submitter Address</label>
+						<input type="text" class="form-control" id="submitteraddress" placeholder="Submitter Address" required >
+						</div>
+						
+						<div class="form-group">
+						<input type="submit" value="Submit">
+						</div>
+					</form>
+                    
+                </div>
+                
+            </p>
+        </div>
+    </div>
+
+    <div id= "footerCopy" class="bottomLayer">
+    </div>
+    
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Scroll to top</button>
+
+    <!-- The container that holds everything
+    <div class="container">
+    <h3>Download test</h3>
+    If simpleValid.ged exists in the uploads/ directory on the server, then clicking on the link below will download it from the server.<br>
+    <a href="../uploads/simpleValid.ged">simpleValid.ged</a>
+    <hr>
+    </div>
+    Leave me at the bottom of body -->
+    <script src="./index.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
